@@ -5,19 +5,20 @@ include "../connect.php" ;
 $code = filterRequest("code");
 
 
-$stmt = $con->prepare("SELECT `name` FROM `code` WHERE `code` = ?");
+$stmtMada = $con->prepare("SELECT `name` FROM `code` WHERE `code` = ?");
 
-$stmt -> execute(array($code));
+$stmtMada -> execute(array($code));
 
-$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$getNameMada= $stmtMada->fetchAll(PDO::FETCH_ASSOC);
 
-$count = $stmt->rowCount();
+$count = $stmtMada->rowCount();
 
 if($count > 0){
-echo json_encode(array("status" => "success", "data" => $data ));
+echo json_encode(array("status" => "success", "data" => $getNameMada ));
 }else{
     echo json_encode(array("status" => "fail"));
 }
+
 
 
 

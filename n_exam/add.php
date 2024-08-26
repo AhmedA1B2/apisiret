@@ -7,10 +7,11 @@ $m = filterRequest("madaname");
 $dnsfy = filterRequest("dnsfy");
 $damly = filterRequest("damly");
 $who_added = filterRequest("who_added");
+$college_add = filterRequest("college_add");
 
-$stmt = $con->prepare("INSERT INTO `n_exam`( `num`,`m`,`dnsfy`,`damly`,`who_added`) VALUES (?,?,?,?,?)");
+$stmt = $con->prepare("INSERT INTO `n_exam`( `num`,`m`,`dnsfy`,`damly`,`who_added`,`college_add`) VALUES (?,?,?,?,?,?)");
 
-$stmt->execute(array($num,$m, $dnsfy,$damly,$who_added));
+$stmt->execute(array($num,$m, $dnsfy,$damly,$who_added,$college_add));
 
 $count = $stmt->rowCount();
 
