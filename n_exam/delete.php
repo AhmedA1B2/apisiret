@@ -5,10 +5,11 @@ include "../connect.php";
 
 
 $who_added = 0;
+$college_add = filterRequest("college_add");
 
-$stmt = $con->prepare("UPDATE `n_exam`SET `who_added`=?");
+$stmt = $con->prepare("UPDATE `n_exam`SET `who_added`=? WHERE `college_add`= ?");
 
-$stmt->execute(array($who_added));
+$stmt->execute(array($who_added,$college_add));
 
 $count = $stmt->rowCount();
 

@@ -65,7 +65,9 @@ foreach ($d as $num => $values) {
     $insert_stmt->execute($params);
 }
 
-$con->prepare("DELETE FROM `n_exam`")->execute();
+
+$stmtDelete = $con->prepare("DELETE  FROM `n_exam` WHERE `who_added` = ?");
+$stmtDelete->execute(array($who_added));
 
 if ($stmt->rowCount() > 0) {
     echo json_encode(array("status" => "success", "data" => $d));

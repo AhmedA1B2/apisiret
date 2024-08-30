@@ -46,12 +46,82 @@ $d12 = filterRequest("d12")+$dn12;
 $in_finl  = filterRequest("in_finl");
 //
 $id = filterRequest("id_ex");
+//
+
+$fm = 100;
+
+$data = [
+"m1"=>$m1,
+"m2"=>$m2,
+"m3"=>$m3,
+"m4"=>$m4,
+"m5"=>$m5,
+"m6"=>$m6,
+"m7"=>$m7,
+"m8"=>$m8,
+"m9"=>$m9,
+"m10"=>$m10,
+"m11"=>$m11,
+"m12"=>$m12,
+"d1"=>$d1,
+"d2"=>$d2,
+"d3"=>$d3,
+"d4"=>$d4,
+"d5"=>$d5,
+"d6"=>$d6,
+"d7"=>$d7,
+"d8"=>$d8,
+"d9"=>$d9,
+"d10"=>$d10,
+"d11"=>$d11,
+"d12"=>$d12,
+];
+
+$mf = [];
+    for ($i = 1; $i <= 12; $i++) {
+        $mf[$i] = $data["m$i"];
+    }
+
+    $unity = [];
+
+    for ($i = 1; $i <= 12; $i++) {
+        $code_stmt = $con->prepare("SELECT `num` FROM `code` WHERE `code` = ?");
+        $code_stmt->execute(array($mf[$i]));
+        $codeData = $code_stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($code_stmt->rowCount() > 0) {
+            $unity[$i] = (float)$codeData['num'];
+        } else {
+            $unity[$i] = 0;
+        }
+    }
+
+    $d = [];
+    for ($i = 1; $i <= 12; $i++) {
+        $d[$i] = (float)$data["d$i"];
+    }
+
+    $mg1 = 0;
+    $mg2 = 0;
+    for ($i = 1; $i <= 12; $i++) {
+        $mg1 += $d[$i] * $unity[$i];
+        $mg2 += $fm * $unity[$i];
+    }
+
+    if ($mg2 != 0) {
+        $moadel = ($mg1 / $mg2) * $fm;
+    } else {
+        $moadel = 0;
+    }
+    
+    $moadel = number_format($moadel, 2); 
 
 
 
-$stmt = $con->prepare("UPDATE `exam` SET `idnum`=?,`pass` = ?,`m1`= ?,`m2`= ?,`m3`= ?,`m4`= ?,`m5`= ?,`m6`= ?,`m7`= ?,`m8`= ?,`m9`= ?,`m10`= ?,`m11`= ?,`m12`= ?,`d1`= ?,`d2`= ?,`d3`= ?,`d4`= ?,`d5`= ?,`d6`= ?,`d7`= ?,`d8`= ?,`d9`= ?,`d10`= ?,`d11`= ?,`d12`= ?,`in_finl`=? WHERE `id_ex` = ?");
 
-$stmt->execute(array($num, $pass, $m1, $m2, $m3, $m4, $m5, $m6, $m7, $m8, $m9, $m10, $m11, $m12, $d1, $d2, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $d10, $d11, $d12,$in_finl, $id));
+$stmt = $con->prepare("UPDATE `exam` SET `idnum`=?,`pass` = ?,`m1`= ?,`m2`= ?,`m3`= ?,`m4`= ?,`m5`= ?,`m6`= ?,`m7`= ?,`m8`= ?,`m9`= ?,`m10`= ?,`m11`= ?,`m12`= ?,`d1`= ?,`d2`= ?,`d3`= ?,`d4`= ?,`d5`= ?,`d6`= ?,`d7`= ?,`d8`= ?,`d9`= ?,`d10`= ?,`d11`= ?,`d12`= ?,`in_finl`=?,`mof`=? WHERE `id_ex` = ?");
+
+$stmt->execute(array($num, $pass, $m1, $m2, $m3, $m4, $m5, $m6, $m7, $m8, $m9, $m10, $m11, $m12, $d1, $d2, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $d10, $d11, $d12,$in_finl,$moadel, $id));
 
 $count = $stmt->rowCount();
 
