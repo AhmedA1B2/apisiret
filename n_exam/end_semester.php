@@ -68,11 +68,21 @@ foreach ($d as $num => $values) {
 
 $stmtDelete = $con->prepare("DELETE  FROM `n_exam` WHERE `who_added` = ?");
 $stmtDelete->execute(array($who_added));
+$stmtDelete2 = $con->prepare("DELETE  FROM `notifications` WHERE `end_sem` = ?");
+$stmtDelete2->execute(array($who_added));
 
 if ($stmt->rowCount() > 0) {
     echo json_encode(array("status" => "success", "data" => $d));
 } else {
     echo json_encode(array("status" => "fail"));
 }
+
+
+
+
+// أنت تحتج من اضاف عشان تحذف (End_sem)
+
+
+
 
 ?>
