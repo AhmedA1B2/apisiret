@@ -8,11 +8,12 @@ $num       = filterRequest("num");
 $pass      = filterRequest("pass");
 $college   = filterRequest("college");
 $tkss      = filterRequest("tkss");
+$time      = filterRequest("time");
 
-$stmt = $con->prepare("UPDATE `student` SET `name`= ?,`num`= ?,`pass`= ?,`college`=?,`tkss`=? WHERE `id_st` = ?");
+$stmt = $con->prepare("UPDATE `student` SET `name`= ?,`num`= ?,`pass`= ?,`college`=?,`tkss`=?,`time`=? WHERE `id_st` = ?");
 
 
-$stmt -> execute(array($name, $num, $pass, $college, $tkss, $id));
+$stmt -> execute(array($name, $num, $pass, $college, $tkss,$time, $id));
 
 $count = $stmt->rowCount();
 

@@ -4,6 +4,7 @@ include "../connect.php" ;
 
 $num = filterRequest("idnum");
 $pass= filterRequest("pass");
+$time= filterRequest("time");
 $m1  = filterRequest("m1");
 $m2  = filterRequest("m2");
 $m3  = filterRequest("m3");
@@ -119,9 +120,9 @@ $mf = [];
 
 
 
-$stmt = $con->prepare("UPDATE `exam` SET `idnum`=?,`pass` = ?,`m1`= ?,`m2`= ?,`m3`= ?,`m4`= ?,`m5`= ?,`m6`= ?,`m7`= ?,`m8`= ?,`m9`= ?,`m10`= ?,`m11`= ?,`m12`= ?,`d1`= ?,`d2`= ?,`d3`= ?,`d4`= ?,`d5`= ?,`d6`= ?,`d7`= ?,`d8`= ?,`d9`= ?,`d10`= ?,`d11`= ?,`d12`= ?,`in_finl`=?,`mof`=? WHERE `id_ex` = ?");
+$stmt = $con->prepare("UPDATE `exam` SET `idnum`=?,`pass` = ?,`m1`= ?,`m2`= ?,`m3`= ?,`m4`= ?,`m5`= ?,`m6`= ?,`m7`= ?,`m8`= ?,`m9`= ?,`m10`= ?,`m11`= ?,`m12`= ?,`d1`= ?,`d2`= ?,`d3`= ?,`d4`= ?,`d5`= ?,`d6`= ?,`d7`= ?,`d8`= ?,`d9`= ?,`d10`= ?,`d11`= ?,`d12`= ?,`in_finl`=?,`mof`=?,`time`=? WHERE `id_ex` = ?");
 
-$stmt->execute(array($num, $pass, $m1, $m2, $m3, $m4, $m5, $m6, $m7, $m8, $m9, $m10, $m11, $m12, $d1, $d2, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $d10, $d11, $d12,$in_finl,$moadel, $id));
+$stmt->execute(array($num, $pass, $m1, $m2, $m3, $m4, $m5, $m6, $m7, $m8, $m9, $m10, $m11, $m12, $d1, $d2, $d3, $d4, $d5, $d6, $d7, $d8, $d9, $d10, $d11, $d12,$in_finl,$moadel,$time, $id));
 
 $count = $stmt->rowCount();
 
